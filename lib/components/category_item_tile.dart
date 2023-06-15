@@ -25,26 +25,27 @@ class CategoryItemTile extends StatelessWidget {
           return SingleCategoryPage();
         })),
         child: Container(
-          decoration: BoxDecoration(
-              color: Colors.amberAccent[200],
-              borderRadius: BorderRadius.circular(12)),
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                itemName,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
+            width: MediaQuery.of(context).size.width - 20,
+            height: 400,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 20, left: 20, right: 50
+              ),
+              child:  Text(
+                  itemName,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  softWrap: true,
                 ),
-              ),
-              Image.network(
-                imagePath,
-                height: 100,
-              ),
-            ],
-          ),
-        ),
+            ),
+            decoration: BoxDecoration(
+                color: Colors.amberAccent[200],
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                    image: NetworkImage(imagePath), fit: BoxFit.fill))),
       ),
     );
   }
