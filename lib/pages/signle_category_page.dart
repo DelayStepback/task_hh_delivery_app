@@ -7,7 +7,9 @@ import '../models/cart_model.dart';
 
 class SingleCategoryPage extends StatelessWidget {
   const SingleCategoryPage({super.key, required this.nameTitle});
+
   final String nameTitle;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,26 +21,29 @@ class SingleCategoryPage extends StatelessWidget {
         toolbarHeight: 60,
         elevation: 0,
         leadingWidth: MediaQuery.of(context).size.width,
-          leading:  Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              BackButton(),
-              Text(nameTitle, style: TextStyle(color: Colors.black),),
-              Icon(Icons.person)
-            ],
-          ),
-
+        leading: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            BackButton(),
+            Text(
+              nameTitle,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600),
+            ),
+            Icon(Icons.person)
+          ],
+        ),
       ),
-
       body: const Padding(
         padding: EdgeInsets.all(16),
-        child:
-              SingleChildScrollView(child: FoodWidgets()),
+        child: SingleChildScrollView(child: FoodWidgets()),
       ),
     );
   }
 }
-
 
 class FoodWidgets extends StatefulWidget {
   const FoodWidgets({Key? key}) : super(key: key);
@@ -48,8 +53,6 @@ class FoodWidgets extends StatefulWidget {
 }
 
 class _FoodWidgetsState extends State<FoodWidgets> {
-
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Dishes>>(
@@ -65,16 +68,20 @@ class _FoodWidgetsState extends State<FoodWidgets> {
                 mainAxisSpacing: 15,
                 childAspectRatio: 1,
                 mainAxisExtent: 146,
-
               ),
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index) {
-                return  Padding(
+                return Padding(
                   padding: const EdgeInsets.all(0.0),
-                  child:  FoodItemTile(
-                        itemName: snapshot.data![index].name,
-                        imagePath: snapshot.data![index].imageUrl,
-                    ),
+                  child: FoodItemTile(
+                    itemName: snapshot.data![index].name,
+                    imagePath: snapshot.data![index].imageUrl,
+                    price: snapshot.data![index].price,
+                    weight: snapshot.data![index].weight,
+                    description: snapshot.data![index].description,
+                    id: snapshot.data![index].id,
+                    tegs: snapshot.data![index].tegs,
+                  ),
                 );
               });
         } else if (snapshot.hasError) {
@@ -86,4 +93,3 @@ class _FoodWidgetsState extends State<FoodWidgets> {
     );
   }
 }
-

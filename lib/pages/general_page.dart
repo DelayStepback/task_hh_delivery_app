@@ -49,10 +49,10 @@ class GeneralPage extends StatelessWidget {
             ],
           ),
         ),
-        body: Material(
+        body: const Material(
             elevation: 0,
             color: Colors.white,
-            child: const CategoryWidget()));
+            child: CategoryWidget()));
   }
 
 }

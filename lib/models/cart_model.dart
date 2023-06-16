@@ -51,54 +51,49 @@ Future<List<Dishes>> fetchData_dishes() async {
 // ?? ChangeNotifier
 class CartModel extends ChangeNotifier {
   // list of item on shop
-  List<Dishes> _shopItems = [];
 
+  List<Dishes> _cartItems = [];
 
-  get shopItems => _shopItems;
-
-  List _cartItems = [];
-
-  get cartItems => _cartItems;
+  List<Dishes> get cartItems => _cartItems;
 
   // add items to cart;
-  void addItemToCart(int index){
-    _cartItems.add(_shopItems[index]);
+  void addItemToCart(Dishes dish){
+    _cartItems.add(dish);
     notifyListeners();
   }
 
-  // remove items
-  void removeItemFromCart(int index){
-    _cartItems.removeAt(index);
-    notifyListeners();
-  }
-
-  int indexLastWhere(String name){
-    for (int i = _cartItems.length-1; i > -1; i--) {
-      if (_cartItems[i][1] == name){
-        return i;
-      }
-    }
-    return -1;
-    return _cartItems.lastWhere((namez) => namez == name);
-  }
-
-  // calculate total price
-  String calculateTotalPrice(){
-    double totalPrice = 0;
-    for (int i = 0; i < _cartItems.length; i++){
-      totalPrice += double.parse(_cartItems[i][2]);
-    }
-    return totalPrice.toStringAsFixed(2);
-  }
-
-
-  String countOfItemName(String name){
-    int count = 0;
-    for (int i = 0; i < _cartItems.length; i++) {
-      if (_cartItems[i][1] == name) {
-        count++;
-      }
-    }
-    return count.toString();
-  }
+  // // remove items
+  // void removeItemFromCart(int index){
+  //   _cartItems.removeAt(index);
+  //   notifyListeners();
+  // }
+  //
+  // int indexLastWhere(String name){
+  //   for (int i = _cartItems.length-1; i > -1; i--) {
+  //     if (_cartItems[i].name == name){
+  //       return i;
+  //     }
+  //   }
+  //   return -1;
+  // }
+  //
+  // // calculate total price
+  // String calculateTotalPrice(){
+  //   double totalPrice = 0;
+  //   for (int i = 0; i < _cartItems.length; i++){
+  //     totalPrice += double.parse(_cartItems[i].price.toString());
+  //   }
+  //   return totalPrice.toStringAsFixed(2);
+  // }
+  //
+  //
+  // String countOfItemName(String name){
+  //   int count = 0;
+  //   for (int i = 0; i < _cartItems.length; i++) {
+  //     if (_cartItems[i].name == name) {
+  //       count++;
+  //     }
+  //   }
+  //   return count.toString();
+  // }
 }

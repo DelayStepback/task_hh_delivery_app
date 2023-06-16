@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   int _currentTabIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Center(
       child: Scaffold(
         body: Navigator(key: _navigatorKey, onGenerateRoute: generateRoute),
         bottomNavigationBar: _bottomNavigationBar(),
@@ -30,35 +30,38 @@ class _HomePageState extends State<HomePage> {
 
   Widget _bottomNavigationBar() {
     return
-      BottomNavigationBar(
-        selectedItemColor: Color.fromRGBO(51, 100, 224, 1),
-        unselectedItemColor: Color.fromRGBO(165, 169, 178, 1),
-        elevation: 0,
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
-        iconSize: 30,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Главная',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.search_outlined),
-            label: 'Поиск',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_basket_outlined),
-            label: 'Cart',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Account',
-          ),
-        ],
-      onTap: _onTap,
-      currentIndex: _currentTabIndex,
-    );
+      Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: BottomNavigationBar(
+          selectedItemColor: Color.fromRGBO(51, 100, 224, 1),
+          unselectedItemColor: Color.fromRGBO(165, 169, 178, 1),
+          elevation: 0,
+          selectedFontSize: 10,
+          unselectedFontSize: 10,
+          iconSize: 30,
+          type: BottomNavigationBarType.fixed,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Главная',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search_outlined),
+              label: 'Поиск',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_basket_outlined),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_outlined),
+              label: 'Account',
+            ),
+          ],
+        onTap: _onTap,
+        currentIndex: _currentTabIndex,
+    ),
+      );
   }
 
   _onTap(int tabIndex) {
