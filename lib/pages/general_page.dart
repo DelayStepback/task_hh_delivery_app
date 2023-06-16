@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:task_hh_delivery_app/BNavigation/bottom_nav.dart';
 import 'package:task_hh_delivery_app/models/categories_model.dart';
-import 'package:task_hh_delivery_app/pages/signle_category_page.dart';
 
-import '../BNavigation/routes.dart';
 import '../components/category_item_tile.dart';
-
+import 'package:intl/intl.dart';
 
 class GeneralPage extends StatelessWidget {
   const GeneralPage({super.key});
@@ -21,7 +17,7 @@ class GeneralPage extends StatelessWidget {
           leadingWidth: MediaQuery.of(context).size.width,
           toolbarHeight: 60,
           elevation: 0,
-          leading:   const Row(
+          leading:  Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
@@ -36,7 +32,7 @@ class GeneralPage extends StatelessWidget {
                           color: Colors.black, fontSize: 18,
                           fontWeight: FontWeight.w500
                       ),),
-                      Text('14 июня 2023', style: TextStyle(
+                      Text(DateFormat('yMd').format(DateTime.now()), style: TextStyle(
                           color: Color.fromRGBO(0, 0, 0, 50), fontSize: 14,
                           fontWeight: FontWeight.w400
                       ),),

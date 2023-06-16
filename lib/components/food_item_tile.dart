@@ -38,11 +38,14 @@ class FoodItemTile extends StatelessWidget {
                       Container(
                           height: MediaQuery.of(context).size.height / 4,
                           decoration: BoxDecoration(
-                              color: Colors.purpleAccent,
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color.fromRGBO(248, 247, 245, 1),
                               image: DecorationImage(
                                 image: NetworkImage(imagePath),
                                 scale: 3,
-                              ))),
+                              ))
+
+                      ),
                       Positioned(
                         right: 8,
                         top: 8,
@@ -78,11 +81,23 @@ class FoodItemTile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(itemName),
+                  Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(itemName, style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),)),
                   Row(
                     children: [
-                      Text(price.toString()),
-                      Text(weight.toString()),
+                      Text(price.toString() + '\₽', style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),),
+                      Text(' · '+weight.toString() + 'г', style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),),
                     ],
                   ),
                   Container(
@@ -91,7 +106,8 @@ class FoodItemTile extends StatelessWidget {
                         child: Text(
                           description,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 14,
+                            color: Color.fromRGBO(0, 0, 0, 0.65)
                           ),
                         ),
                       )),
@@ -131,7 +147,8 @@ class FoodItemTile extends StatelessWidget {
           height: 109,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: Colors.amber,
+          color: Color.fromRGBO(248, 247, 245, 1),
+          elevation: 0,
           onPressed: () => _dialogBuilder(context),
           child: Container(
             height: 109,

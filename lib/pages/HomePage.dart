@@ -9,7 +9,8 @@ import 'package:task_hh_delivery_app/pages/signle_category_page.dart';
 import '../components/category_item_tile.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key});
+
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -17,8 +18,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-  int _currentTabIndex = 0;
+    int _currentTabIndex = 0;
   @override
+  void initState() {
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return Center(
       child: Scaffold(

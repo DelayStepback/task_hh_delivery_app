@@ -1,9 +1,8 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-class Dishes {
+class Dishes extends ChangeNotifier {
   int id;
   String name;
   int price;
@@ -32,7 +31,7 @@ class Dishes {
 
 }
 
-// вернет лист с Dish объектами
+// json parse
 Future<List<Dishes>> fetchData_dishes() async {
   var url = Uri.parse('https://run.mocky.io/v3/aba7ecaa-0a70-453b-b62d-0e326c859b3b');
 
@@ -48,52 +47,96 @@ Future<List<Dishes>> fetchData_dishes() async {
 }
 
 
-// ?? ChangeNotifier
+Future<List<String>> fetchTegs() async {
+  List<Dishes> dishes = await fetchData_dishes();
+  print(dishes[0].tegs);
+  List<String> unqTegs = [];
+  for (Dishes dish in dishes){
+    for (String teg in dish.tegs){
+      if (unqTegs.indexOf(teg) == -1){
+        unqTegs.add(teg);
+      }
+    }
+  }
+  return unqTegs;
+}
+
+
+
+
+
 class CartModel extends ChangeNotifier {
-  // list of item on shop
 
   List<Dishes> _cartItems = [];
-
   List<Dishes> get cartItems => _cartItems;
+
+
+
+  var map_of_Dishes = Map();
 
   // add items to cart;
   void addItemToCart(Dishes dish){
-    _cartItems.add(dish);
+
+    // если уже есть в корзине
+    if (checkDishInDishes(dish, _cartItems)){
+      map_of_Dishes[dish.id] += 1;
+    }
+    // иначе добавляем
+    else{
+      _cartItems.add(dish);
+      map_of_Dishes[dish.id] = 1;
+    }
     notifyListeners();
   }
 
-  // // remove items
-  // void removeItemFromCart(int index){
-  //   _cartItems.removeAt(index);
-  //   notifyListeners();
-  // }
-  //
-  // int indexLastWhere(String name){
-  //   for (int i = _cartItems.length-1; i > -1; i--) {
-  //     if (_cartItems[i].name == name){
-  //       return i;
-  //     }
-  //   }
-  //   return -1;
-  // }
-  //
-  // // calculate total price
-  // String calculateTotalPrice(){
-  //   double totalPrice = 0;
-  //   for (int i = 0; i < _cartItems.length; i++){
-  //     totalPrice += double.parse(_cartItems[i].price.toString());
-  //   }
-  //   return totalPrice.toStringAsFixed(2);
-  // }
-  //
-  //
-  // String countOfItemName(String name){
-  //   int count = 0;
-  //   for (int i = 0; i < _cartItems.length; i++) {
-  //     if (_cartItems[i].name == name) {
-  //       count++;
-  //     }
-  //   }
-  //   return count.toString();
-  // }
+  bool checkDishInDishes(Dishes dish, List<Dishes> cartDishes){
+    for (var item in cartDishes){
+      if (eqTwoDishes(dish, item)){
+        return true;
+      }
+    }
+    return false;
+  }
+  bool eqTwoDishes(Dishes dish1, Dishes dish2){
+    return dish1.id == dish2.id;
+  }
+
+  Dishes findDish_byID(int id){
+    for (var item in _cartItems){
+      if (item.id == id){
+        return item;
+      }
+    }
+    throw Exception('Unexpected error occured!');
+  }
+  String calculateTotalPrice(){
+    double totalPrice = 0;
+    for (int i = 0; i < _cartItems.length; i++){
+      // count of item: map_of_Dishes[_cartItems[i].id]
+      totalPrice += _cartItems[i].price * map_of_Dishes[_cartItems[i].id];
+    }
+    notifyListeners();
+    return totalPrice.toStringAsFixed(2);
+
+  }
+
+  void removeOneFromCart(int id){
+    if (map_of_Dishes[id] > 1){
+      map_of_Dishes[id] -= 1;
+    }
+    else{
+      map_of_Dishes.remove(id);
+      for (int i = 0; i < _cartItems.length; i++){
+        if (_cartItems[i].id == id){
+          _cartItems.removeAt(i);
+          notifyListeners();
+          return;
+        }
+      }
+    }
+    notifyListeners();
+
+  }
+
+
 }
