@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:task_hh_delivery_app/BNavigation/bottom_nav.dart';
 import 'package:task_hh_delivery_app/models/categories_model.dart';
+import 'package:task_hh_delivery_app/pages/signle_category_page.dart';
 
+import '../BNavigation/routes.dart';
 import '../components/category_item_tile.dart';
 
 
@@ -16,7 +19,7 @@ class GeneralPage extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.black),
 
           leadingWidth: MediaQuery.of(context).size.width,
-          toolbarHeight: 80,
+          toolbarHeight: 60,
           elevation: 0,
           leading:   const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -75,7 +78,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               ),
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index) {
-                return  CategoryItemTile(
+                return CategoryItemTile(
                   itemID: snapshot.data![index].id,
                   itemName: snapshot.data![index].name,
                   imagePath: snapshot.data![index].image_url,
@@ -91,44 +94,4 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   }
 
 
-
-
-
-
-
-
-
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: SafeArea(
-  //       child: Column(
-  //         children: [
-  //           Expanded(
-  //               child: Consumer<CategoryModel>(
-  //                   builder: (context, value, child){
-  //                     return GridView.builder(
-  //                         itemCount: value.categories.length,
-  //                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //                           crossAxisCount: 1,
-  //                           childAspectRatio: 2.25,
-  //                         ),
-  //                         itemBuilder: (context, index) {
-  //                           return CategoryItemTile(
-  //                             itemID: value.categories[index].id,
-  //                             itemName: value.categories[index].name,
-  //                             imagePath: value.categories[index].image_url,
-  //                           );
-  //                         } );
-  //                   }
-  //               )
-  //
-  //           )
-  //         ],
-  //       ),
-  //
-  //     ),
-  //   );
-  // }
 }

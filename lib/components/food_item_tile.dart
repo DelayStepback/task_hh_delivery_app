@@ -4,82 +4,92 @@ import 'package:provider/provider.dart';
 import '../models/cart_model.dart';
 
 class FoodItemTile extends StatelessWidget {
-
   final String itemName;
-  final String itemPrice;
   final String imagePath;
-  final color;
-  void Function()? onPressed;
-  final String count;
-
 
   FoodItemTile({
     super.key,
-    required this.color,
-  required this.imagePath,
-  required this.itemName,
-  required this.itemPrice,
-    required this.onPressed,
-    required this.count,
+    required this.imagePath,
+    required this.itemName,
   });
-
-
-
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Basic dialog title'),
+          content: const Text(
+            'A dialog is a type of modal window that\n'
+                'appears in front of app content to\n'
+                'provide critical information, or prompt\n'
+                'for a decision to be made.',
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme
+                    .of(context)
+                    .textTheme
+                    .labelLarge,
+              ),
+              child: const Text('Disable'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme
+                    .of(context)
+                    .textTheme
+                    .labelLarge,
+              ),
+              child: const Text('Enable'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
-
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-          decoration: BoxDecoration(color: color[100],
-          borderRadius: BorderRadius.circular(24)),
-        child:  Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // image
-            Image.asset(imagePath, height: 100,),
-
-            // text
-            Text(itemName, style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w600,
-            ),),
-
-            // button
-            MaterialButton(onPressed: onPressed,
-              color: color,
-
-            child: Column(
-              children: [
-                Text(itemPrice + ' ' + '\₽', style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),),
-
-              ],
-            ),
-            ),
-
-
-    Consumer<CartModel>(
-    builder: (context2, value, child) {
-      return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(onPressed: () => value.removeItemFromCart(value.indexLastWhere(itemName)), icon: Icon(Icons.remove)),
-                Text(count, style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),),
-                IconButton(onPressed: onPressed, icon: Icon(Icons.add)),
-              ],
-            );
-    })
-          ],
+    return Column(
+      //crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+          MaterialButton(
+            height: 109,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)),
+            color: Colors.amber,
+            onPressed: () => _dialogBuilder(context),
+            child: Container(
+              height: 109,
+              width: 109,
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    image: NetworkImage(imagePath),
+                    //fit: BoxFit.fill
+                  )),
+                ),
+              ),
         ),
-      ),
+          ),
+        // // text
+        Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: Text(itemName, style: TextStyle(
+                fontWeight: FontWeight.w400, fontSize: 14,
+              ) ),
+            ))
+      ],
     );
   }
 }

@@ -8,3 +8,22 @@ class CartPage extends StatelessWidget {
     return const Placeholder();
   }
 }
+
+
+// Consumer<CartModel>
+// (
+// builder: (
+// context2, value, child) {
+// return Row(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// IconButton(onPressed: () => value.removeItemFromCart(value.indexLastWhere(itemName)), icon: Icon(Icons.remove)),
+// Text(count, style: TextStyle(
+// color: Colors.black,
+// fontWeight: FontWeight.bold,
+// fontSize: 16,
+// ),),
+// IconButton(onPressed: onPressed, icon: Icon(Icons.add)),
+// ],
+// );
+// })

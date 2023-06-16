@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer' as developer;
 
-class Category extends ChangeNotifier {
+
+class Category {
   String name;
   int id;
   String image_url;
@@ -27,7 +24,6 @@ Future<List<Category>> fetchData() async {
   if (response.statusCode == 200) {
     List jsonResponse = jsonDecode(response.body)["сategories"];
     return jsonResponse.map<Category>((json) => Category.fromJson(json)).toList();
-    return jsonResponse.map((jsonResponse) => Category.fromJson(jsonResponse)).toList();
   } else {
     throw Exception('Unexpected error occured!');
   }

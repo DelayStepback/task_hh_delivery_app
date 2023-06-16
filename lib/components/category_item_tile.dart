@@ -20,10 +20,11 @@ class CategoryItemTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: MaterialButton(
-        onPressed: () =>
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return SingleCategoryPage();
-        })),
+        onPressed: () => Navigator.pushNamed(context, 'Categories', arguments: ScreenArguments(itemName)),
+          //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+          // return SingleCategoryPage(nameTitle: itemName);
+        //})),
+
         child: Container(
             width: MediaQuery.of(context).size.width - 20,
             height: 400,
@@ -50,3 +51,8 @@ class CategoryItemTile extends StatelessWidget {
     );
   }
 }
+class ScreenArguments {
+  final String nameTitle;
+  ScreenArguments(this.nameTitle);
+}
+

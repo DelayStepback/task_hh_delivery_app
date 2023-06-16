@@ -1,82 +1,58 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+class Dishes {
+  int id;
+  String name;
+  int price;
+  int weight;
+  String description;
+  String imageUrl;
+  List<String> tegs;
 
-// class DishesModel {
-//   late final List<Dishes> dishes;
-//
-//   DishesModel({this.dishes});
-//
-//   DishesModel.fromJson(Map<String, dynamic> json) {
-//     if (json['dishes'] != null) {
-//       dishes = new List<Dishes>();
-//       json['dishes'].forEach((v) {
-//         dishes.add(new Dishes.fromJson(v));
-//       });
-//     }
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     if (this.dishes != null) {
-//       data['dishes'] = this.dishes.map((v) => v.toJson()).toList();
-//     }
-//     return data;
-//   }
-// }
-//
-// class Dishes {
-//   int id;
-//   String name;
-//   int price;
-//   int weight;
-//   String description;
-//   String imageUrl;
-//   List<String> tegs;
-//
-//   Dishes(
-//       {this.id,
-//         this.name,
-//         this.price,
-//         this.weight,
-//         this.description,
-//         this.imageUrl,
-//         this.tegs});
-//
-//   Dishes.fromJson(Map<String, dynamic> json) {
-//     id = json['id'];
-//     name = json['name'];
-//     price = json['price'];
-//     weight = json['weight'];
-//     description = json['description'];
-//     imageUrl = json['image_url'];
-//     tegs = json['tegs'].cast<String>();
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['id'] = this.id;
-//     data['name'] = this.name;
-//     data['price'] = this.price;
-//     data['weight'] = this.weight;
-//     data['description'] = this.description;
-//     data['image_url'] = this.imageUrl;
-//     data['tegs'] = this.tegs;
-//     return data;
-//   }
-// }
+  Dishes(this.id,
+        this.name,
+        this.price,
+        this.weight,
+        this.description,
+        this.imageUrl,
+        this.tegs
+      );
+
+  factory Dishes.fromJson(Map<String, dynamic> json) {
+    return Dishes(
+      json['id'] as int, json['name'] as String,
+      json['price'] as int, json['weight'] as int,
+      json['description'] as String, json['image_url'] as String,
+      json['tegs'].cast<String>()
+    );
+  }
+
+}
+
+// вернет лист с Dish объектами
+Future<List<Dishes>> fetchData_dishes() async {
+  var url = Uri.parse('https://run.mocky.io/v3/aba7ecaa-0a70-453b-b62d-0e326c859b3b');
+
+  final response = await http.get(url);
 
 
+  if (response.statusCode == 200) {
+    List jsonResponse = jsonDecode(response.body)["dishes"];
+    return jsonResponse.map<Dishes>((json) => Dishes.fromJson(json)).toList();
+  } else {
+    throw Exception('Unexpected error occured!');
+  }
+}
 
+
+// ?? ChangeNotifier
 class CartModel extends ChangeNotifier {
   // list of item on shop
+  List<Dishes> _shopItems = [];
 
-  final List _shopItems = [
-    // [ itemName, itemPrice, itemPath, color ]
-    ['Бургер', "120.00", 'lib/icons/burger.png', Colors.green],
-    ['Паста', "340.00", 'lib/icons/pasta.png', Colors.redAccent],
-    ['Пицца', "210.00", 'lib/icons/pizza.png', Colors.yellow],
-    ['Тако', "175.00", 'lib/icons/taco.png', Colors.orange],
-  ];
 
   get shopItems => _shopItems;
 
@@ -98,7 +74,7 @@ class CartModel extends ChangeNotifier {
 
   int indexLastWhere(String name){
     for (int i = _cartItems.length-1; i > -1; i--) {
-      if (_cartItems[i][0] == name){
+      if (_cartItems[i][1] == name){
         return i;
       }
     }
@@ -110,7 +86,7 @@ class CartModel extends ChangeNotifier {
   String calculateTotalPrice(){
     double totalPrice = 0;
     for (int i = 0; i < _cartItems.length; i++){
-      totalPrice += double.parse(_cartItems[i][1]);
+      totalPrice += double.parse(_cartItems[i][2]);
     }
     return totalPrice.toStringAsFixed(2);
   }
@@ -119,11 +95,10 @@ class CartModel extends ChangeNotifier {
   String countOfItemName(String name){
     int count = 0;
     for (int i = 0; i < _cartItems.length; i++) {
-      if (_cartItems[i][0] == name) {
+      if (_cartItems[i][1] == name) {
         count++;
       }
     }
-
     return count.toString();
   }
 }

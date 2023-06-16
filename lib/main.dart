@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:task_hh_delivery_app/pages/HomePage.dart';
 import 'package:task_hh_delivery_app/pages/general_page.dart';
 import 'dart:io';
+
+import 'models/cart_model.dart';
 
 class MyHttpOverrides extends HttpOverrides{
   @override
@@ -22,9 +26,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(create: (context) => CartModel(),
+    child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: GeneralPage(),
+          home: HomePage(),
+    )
     );
   }
 }
