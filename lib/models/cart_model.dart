@@ -32,7 +32,7 @@ class Dishes extends ChangeNotifier {
 }
 
 // json parse
-Future<List<Dishes>> fetchData_dishes() async {
+Future<List<Dishes>> fetchData_dishes(String tagCurrent) async {
   var url = Uri.parse('https://run.mocky.io/v3/aba7ecaa-0a70-453b-b62d-0e326c859b3b');
 
   final response = await http.get(url);
@@ -40,16 +40,28 @@ Future<List<Dishes>> fetchData_dishes() async {
 
   if (response.statusCode == 200) {
     List jsonResponse = jsonDecode(response.body)["dishes"];
-    return jsonResponse.map<Dishes>((json) => Dishes.fromJson(json)).toList();
-  } else {
+    List<Dishes> _dishesList = [];
+    for (var json in jsonResponse){
+      if (tagCurrent == 'empty') {
+        _dishesList.add(Dishes.fromJson(json));
+      }
+      else{
+        if (Dishes.fromJson(json).tegs.contains(tagCurrent)){
+          _dishesList.add(Dishes.fromJson(json));
+        }
+      }
+    }
+    return _dishesList;
+  }
+  else {
     throw Exception('Unexpected error occured!');
   }
+  throw Exception('Unexpected error occured!');
 }
 
 
 Future<List<String>> fetchTegs() async {
-  List<Dishes> dishes = await fetchData_dishes();
-  print(dishes[0].tegs);
+  List<Dishes> dishes = await fetchData_dishes('empty');
   List<String> unqTegs = [];
   for (Dishes dish in dishes){
     for (String teg in dish.tegs){

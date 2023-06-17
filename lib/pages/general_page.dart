@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:task_hh_delivery_app/models/categories_model.dart';
 
 import '../components/category_item_tile.dart';
@@ -6,6 +7,29 @@ import 'package:intl/intl.dart';
 
 class GeneralPage extends StatelessWidget {
   const GeneralPage({super.key});
+
+  String getDateNow(){
+    final now = DateTime.now();
+//    var str = DateFormat('yMd').format(now);
+    String mount_txt = '';
+    switch(now.month){
+      case 1: mount_txt = "Января"; break;
+      case 2: mount_txt = "Февраля"; break;
+      case 3: mount_txt = "Марта"; break;
+      case 4: mount_txt = "Апреля"; break;
+      case 5: mount_txt = "Мая"; break;
+      case 6: mount_txt = "Июня"; break;
+      case 7: mount_txt = "Июля"; break;
+      case 8: mount_txt = "Августа"; break;
+      case 9: mount_txt = "Сентября"; break;
+      case 10: mount_txt = "Октября"; break;
+      case 11: mount_txt = "Ноября"; break;
+      case 12: mount_txt = "Декабря"; break;
+    }
+    String str = "${now.day.toString()} ${mount_txt}, ${now.year.toString()} ";
+    return str;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -24,16 +48,26 @@ class GeneralPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.location_on_outlined),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: SvgPicture.asset(
+                      'lib/assets/icons/Location.svg',
+                    ),
+
+
+
+
+                  ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Волгоград', style: TextStyle(
                           color: Colors.black, fontSize: 18,
                           fontWeight: FontWeight.w500
                       ),),
-                      Text(DateFormat('yMd').format(DateTime.now()), style: TextStyle(
-                          color: Color.fromRGBO(0, 0, 0, 50), fontSize: 14,
+                      Text(getDateNow(), style: TextStyle(
+                          color: Color.fromRGBO(0, 0, 0, 0.5), fontSize: 14,
                           fontWeight: FontWeight.w400
                       ),),
                     ],
@@ -41,7 +75,10 @@ class GeneralPage extends StatelessWidget {
                 ],
               ),
               SizedBox(width: 100, height: 1,),
-              Icon(Icons.person)
+              CircleAvatar(
+                radius: 22, // Image radius
+                backgroundImage: NetworkImage('https://b1.filmpro.ru/c/150799.700xp.jpg'),
+              )
             ],
           ),
         ),

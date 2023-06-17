@@ -56,7 +56,7 @@ class FoodItemTile extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                               child: IconButton(
-                                icon: const Icon(Icons.heart_broken,
+                                icon: const Icon(Icons.favorite_border,
                                     color: Colors.black),
                                 color: Colors.white,
                                 onPressed: () {},

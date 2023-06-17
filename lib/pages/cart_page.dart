@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../models/cart_model.dart';
@@ -16,6 +17,27 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     super.initState();
   }
+  String getDateNow(){
+    final now = DateTime.now();
+//    var str = DateFormat('yMd').format(now);
+    String mount_txt = '';
+    switch(now.month){
+      case 1: mount_txt = "Января"; break;
+      case 2: mount_txt = "Февраля"; break;
+      case 3: mount_txt = "Марта"; break;
+      case 4: mount_txt = "Апреля"; break;
+      case 5: mount_txt = "Мая"; break;
+      case 6: mount_txt = "Июня"; break;
+      case 7: mount_txt = "Июля"; break;
+      case 8: mount_txt = "Августа"; break;
+      case 9: mount_txt = "Сентября"; break;
+      case 10: mount_txt = "Октября"; break;
+      case 11: mount_txt = "Ноября"; break;
+      case 12: mount_txt = "Декабря"; break;
+    }
+    String str = "${now.day.toString()} ${mount_txt}, ${now.year.toString()} ";
+    return str;
+  }
 
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,18 +48,24 @@ class _CartPageState extends State<CartPage> {
             leadingWidth: MediaQuery.of(context).size.width,
             toolbarHeight: 60,
             elevation: 0,
-            leading: const Row(
+            leading: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.location_on_outlined),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: SvgPicture.asset(
+                        'lib/assets/icons/Location.svg',
+                      ),
+                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Волгоград',
                           style: TextStyle(
                               color: Colors.black,
@@ -45,9 +73,9 @@ class _CartPageState extends State<CartPage> {
                               fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          '14 июня 2023',
-                          style: TextStyle(
-                              color: Color.fromRGBO(0, 0, 0, 50),
+                          getDateNow(),
+                          style: const TextStyle(
+                              color: Color.fromRGBO(0, 0, 0, 0.5),
                               fontSize: 14,
                               fontWeight: FontWeight.w400),
                         ),
@@ -55,11 +83,15 @@ class _CartPageState extends State<CartPage> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 100,
                   height: 1,
                 ),
-                Icon(Icons.person)
+                const CircleAvatar(
+                  radius: 22, // Image radius
+                  backgroundImage:
+                      NetworkImage('https://b1.filmpro.ru/c/150799.700xp.jpg'),
+                )
               ],
             ),
           ),
@@ -72,15 +104,14 @@ class _CartPageState extends State<CartPage> {
                     Expanded(
                       flex: 1,
                       child: ListView.builder(
-
                           itemCount: value.map_of_Dishes.length,
                           itemBuilder: (context, index) {
                             return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: Color.fromRGBO(248, 247, 245, 1),
+                                    color: const Color.fromRGBO(248, 247, 245, 1),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Padding(
@@ -92,71 +123,84 @@ class _CartPageState extends State<CartPage> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Column(
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          textAlign: TextAlign.start,
-                                          value.cartItems[index].name,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            value.cartItems[index].price
-                                                    .toString() +
-                                                ' \₽',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w900),
+                                            value.cartItems[index].name,
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14),
                                           ),
-                                          Text(
-                                            ' · ' +
-                                                value.cartItems[index].weight
-                                                    .toString() +
-                                                'г',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w900),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                value.cartItems[index].price
+                                                        .toString() +
+                                                    ' \₽',
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 14),
+                                              ),
+                                              Text(
+                                                ' · ' +
+                                                    value
+                                                        .cartItems[index].weight
+                                                        .toString() +
+                                                    'г',
+                                                style: const TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        0, 0, 0, 0.4),
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 14),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-
-                                    ],
-                                  ),
-                                ),
-                                Expanded(child: SizedBox()),
-                                // buttons
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Color.fromRGBO(239, 238, 236, 1),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-
-                                  child: Row(
-                                    children: [
-                                      IconButton(
-                                          onPressed: () =>
-                                              Provider.of<CartModel>(context,
-                                                  listen: false)
-                                                  .removeOneFromCart(value
-                                                  .cartItems[index].id),
-                                          icon: Icon(Icons.remove)),
-                                      Text(value.map_of_Dishes[
-                                      value.cartItems[index].id]
-                                          .toString()),
-                                      IconButton(
-                                          onPressed: () =>
-                                              Provider.of<CartModel>(context,
-                                                  listen: false)
-                                                  .addItemToCart(value
-                                                  .cartItems[index]),
-                                          icon: Icon(Icons.add))
+                                      //Expanded(child: SizedBox(width: 30,)),
+                                      // buttons
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color:
+                                              const Color.fromRGBO(239, 238, 236, 1),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () =>
+                                                    Provider.of<CartModel>(
+                                                            context,
+                                                            listen: false)
+                                                        .removeOneFromCart(value
+                                                            .cartItems[index]
+                                                            .id),
+                                                icon: const Icon(Icons.remove)),
+                                            Text(value.map_of_Dishes[
+                                                    value.cartItems[index].id]
+                                                .toString()),
+                                            IconButton(
+                                                onPressed: () => Provider.of<
+                                                            CartModel>(context,
+                                                        listen: false)
+                                                    .addItemToCart(
+                                                        value.cartItems[index]),
+                                                icon: const Icon(Icons.add))
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 )
@@ -167,13 +211,13 @@ class _CartPageState extends State<CartPage> {
                     MaterialButton(
                         minWidth: MediaQuery.of(context).size.width - 20,
                         height: 48,
-                        color: Color.fromRGBO(51, 100, 224, 1),
+                        color: const Color.fromRGBO(51, 100, 224, 1),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         onPressed: () {},
                         child: Text(
                           'Оплатить ' + value.calculateTotalPrice() + '\₽',
-                          style: TextStyle(color: Colors.white, fontSize: 18.0),
+                          style: const TextStyle(color: Colors.white, fontSize: 18.0),
                         ))
                   ],
                 ),

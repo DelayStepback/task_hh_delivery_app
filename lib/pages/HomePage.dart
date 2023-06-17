@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:task_hh_delivery_app/pages/account_page.dart';
 import 'package:task_hh_delivery_app/pages/cart_page.dart';
 import 'package:task_hh_delivery_app/pages/general_page.dart';
@@ -7,6 +8,9 @@ import 'package:task_hh_delivery_app/pages/search_page.dart';
 import 'package:task_hh_delivery_app/pages/signle_category_page.dart';
 
 import '../components/category_item_tile.dart';
+
+
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -44,22 +48,37 @@ class _HomePageState extends State<HomePage> {
           unselectedFontSize: 10,
           iconSize: 30,
           type: BottomNavigationBarType.fixed,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
+              icon: SvgPicture.asset(
+                  'lib/assets/icons/home.svg',
+                color: _currentTabIndex == 0 ? Color.fromRGBO(51, 100, 224, 1) : Color.fromRGBO(165, 169, 178, 1),
+              ),
               label: 'Главная',
+
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search_outlined),
+              icon: SvgPicture.asset(
+                'lib/assets/icons/search.svg',
+                height: 24,
+                color: _currentTabIndex == 1 ? Color.fromRGBO(51, 100, 224, 1) : Color.fromRGBO(165, 169, 178, 1),
+              ),
               label: 'Поиск',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket_outlined),
-              label: 'Cart',
+              icon: SvgPicture.asset(
+                'lib/assets/icons/backet.svg',
+                height: 28,
+                color: _currentTabIndex == 2 ? Color.fromRGBO(51, 100, 224, 1) : Color.fromRGBO(165, 169, 178, 1),
+              ),
+              label: 'Корзина',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
-              label: 'Account',
+              icon: SvgPicture.asset(
+                'lib/assets/icons/account.svg',
+                color: _currentTabIndex == 3 ? Color.fromRGBO(51, 100, 224, 1) : Color.fromRGBO(165, 169, 178, 1),
+              ),
+              label: 'Аккаунт',
             ),
           ],
         onTap: _onTap,
