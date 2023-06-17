@@ -38,6 +38,7 @@ class CategoryItemTile extends StatelessWidget {
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
+                      fontFamily: 'SFProDisplay'
                   ),
                   softWrap: true,
                 ),

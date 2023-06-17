@@ -28,10 +28,8 @@ class _SingleCategoryPageState extends State<SingleCategoryPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          //title: Text(nameTitle, style: TextStyle(color: Colors.black),),
-          iconTheme: const IconThemeData(color: Colors.black),
-          //leadingWidth: MediaQuery.of(context).size.width,
-          toolbarHeight: 60,
+       iconTheme: const IconThemeData(color: Colors.black),
+         toolbarHeight: 60,
           elevation: 0,
           leadingWidth: MediaQuery
               .of(context)
@@ -54,7 +52,8 @@ class _SingleCategoryPageState extends State<SingleCategoryPage> {
                 widget.nameTitle,
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 18,
+                    fontFamily: 'SFProDisplay',
                     fontWeight: FontWeight.w600),
               ),
               Padding(
@@ -107,7 +106,9 @@ class _SingleCategoryPageState extends State<SingleCategoryPage> {
                                           snapshot.data![index],
                                           style: TextStyle(
                                               color:  (tagCurr == 'empty' && snapshot.data![index] == snapshot.data![0])  || tagCurr == snapshot.data![index] ? Colors.white:Colors.black,
-                                              fontSize: 18.0),
+                                              fontSize: 14.0,
+                                            fontFamily: 'SFProDisplay',
+                                          ),
                                         )),
                                   );
                                 });
@@ -131,7 +132,7 @@ class _SingleCategoryPageState extends State<SingleCategoryPage> {
                           crossAxisSpacing: 8,
                           mainAxisSpacing: 15,
                           childAspectRatio: 1,
-                          mainAxisExtent: 146,
+                          mainAxisExtent: 148,
                         ),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (BuildContext context, int index) {

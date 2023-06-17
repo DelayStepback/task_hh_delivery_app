@@ -26,91 +26,106 @@ class FoodItemTile extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0)), //this right here
           child: Container(
-            height: MediaQuery.of(context).size.height / 1.5,
+            height: MediaQuery.of(context).size.height / 1.8,
             width: MediaQuery.of(context).size.width,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Stack(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                          height: MediaQuery.of(context).size.height / 4,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color.fromRGBO(248, 247, 245, 1),
-                              image: DecorationImage(
-                                image: NetworkImage(imagePath),
-                                scale: 3,
-                              ))
+                      Stack(
+                        children: [
+                          Container(
+                              height: MediaQuery.of(context).size.height / 4,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color.fromRGBO(248, 247, 245, 1),
+                                  image: DecorationImage(
+                                    image: NetworkImage(imagePath),
+                                    scale: 3,
+                                  ))
 
-                      ),
-                      Positioned(
-                        right: 8,
-                        top: 8,
-                        child: Row(
-                          children: [
-                            Material(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              child: IconButton(
-                                icon: const Icon(Icons.favorite_border,
-                                    color: Colors.black),
-                                color: Colors.white,
-                                onPressed: () {},
-                              ),
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Material(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              child: IconButton(
-                                icon: const Icon(Icons.close,
-                                    color: Colors.black),
-                                color: Colors.white,
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(itemName, style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),)),
-                  Row(
-                    children: [
-                      Text(price.toString() + '\₽', style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                      ),),
-                      Text(' · '+weight.toString() + 'г', style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),),
-                    ],
-                  ),
-                  Container(
-                      height: 100,
-                      child: SingleChildScrollView(
-                        child: Text(
-                          description,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Color.fromRGBO(0, 0, 0, 0.65)
                           ),
-                        ),
-                      )),
+                          Positioned(
+                            right: 8,
+                            top: 8,
+                            child: Row(
+                              children: [
+                                Material(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0)),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.favorite_border,
+                                        color: Colors.black),
+                                    color: Colors.white,
+                                    onPressed: () {},
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Material(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0)),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.close,
+                                        color: Colors.black),
+                                    color: Colors.white,
+                                    onPressed: () => Navigator.of(context).pop(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(itemName, style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              fontFamily: 'SFProDisplay',
+                            ),),
+                          )),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                            child: Text(price.toString() + '\₽', style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              fontFamily: 'SFProDisplay',
+                            ),),
+                          ),
+                          Text(' · '+weight.toString() + 'г', style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey,
+                            fontSize: 14,
+                            fontFamily: 'SFProDisplay',
+                          ),),
+                        ],
+                      ),
+                      Container(
+                          height: 100,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              description,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color.fromRGBO(0, 0, 0, 0.65),
+                                fontFamily: 'SFProDisplay',
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
                   Consumer<CartModel>(builder: (context, value, child) {
                     return MaterialButton(
                         minWidth: MediaQuery.of(context).size.width - 20,
@@ -126,7 +141,9 @@ class FoodItemTile extends StatelessWidget {
                         },
                         child: const Text(
                           'Добавить в корзину',
-                          style: TextStyle(color: Colors.white, fontSize: 18.0),
+                          style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              color: Colors.white, fontSize: 18.0),
                         ));
                   })
                 ],
@@ -174,6 +191,7 @@ class FoodItemTile extends StatelessWidget {
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 14,
+                    fontFamily: 'SFProDisplay',
                   )),
             ))
       ],

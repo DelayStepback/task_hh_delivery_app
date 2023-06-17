@@ -41,10 +41,14 @@ class _HomePageState extends State<HomePage> {
       Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
         child: BottomNavigationBar(
+          backgroundColor: Colors.white,
           selectedItemColor: Color.fromRGBO(51, 100, 224, 1),
           unselectedItemColor: Color.fromRGBO(165, 169, 178, 1),
           elevation: 0,
           selectedFontSize: 10,
+          selectedLabelStyle: TextStyle(fontFamily: 'SFProDisplay', fontWeight: FontWeight.w500, color: Color.fromRGBO(51, 100, 224, 1), fontSize: 10 ),
+          unselectedLabelStyle: TextStyle(fontFamily: 'SFProDisplay', fontWeight: FontWeight.w500, color: Color.fromRGBO(165, 169, 178, 1), fontSize: 10 ),
+
           unselectedFontSize: 10,
           iconSize: 30,
           type: BottomNavigationBarType.fixed,

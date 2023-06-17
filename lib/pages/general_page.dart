@@ -62,13 +62,15 @@ class GeneralPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Волгоград', style: TextStyle(
+                      const Text('Волгоград', style: TextStyle(
                           color: Colors.black, fontSize: 18,
-                          fontWeight: FontWeight.w500
+                          fontWeight: FontWeight.w500,
+                        fontFamily: 'SFProDisplay'
                       ),),
                       Text(getDateNow(), style: TextStyle(
                           color: Color.fromRGBO(0, 0, 0, 0.5), fontSize: 14,
-                          fontWeight: FontWeight.w400
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'SFProDisplay'
                       ),),
                     ],
                   ),

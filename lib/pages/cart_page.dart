@@ -97,129 +97,138 @@ class _CartPageState extends State<CartPage> {
           ),
           body: Consumer<CartModel>(
             builder: (context, value, child) {
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: ListView.builder(
-                          itemCount: value.map_of_Dishes.length,
-                          itemBuilder: (context, index) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromRGBO(248, 247, 245, 1),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Image.network(
-                                      value.cartItems[index].imageUrl,
-                                      height: 50,
-                                      width: 50,
+              return Material(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: ListView.builder(
+                            itemCount: value.map_of_Dishes.length,
+                            itemBuilder: (context, index) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromRGBO(248, 247, 245, 1),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Image.network(
+                                        value.cartItems[index].imageUrl,
+                                        height: 50,
+                                        width: 50,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            value.cartItems[index].name,
-                                            style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 14),
-                                          ),
-                                          Row(
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 8.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                value.cartItems[index].price
-                                                        .toString() +
-                                                    ' \₽',
+                                                value.cartItems[index].name,
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 14),
                                               ),
-                                              Text(
-                                                ' · ' +
-                                                    value
-                                                        .cartItems[index].weight
-                                                        .toString() +
-                                                    'г',
-                                                style: const TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        0, 0, 0, 0.4),
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 14),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    value.cartItems[index].price
+                                                            .toString() +
+                                                        ' \₽',
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 14),
+                                                  ),
+                                                  Text(
+                                                    ' · ' +
+                                                        value
+                                                            .cartItems[index].weight
+                                                            .toString() +
+                                                        'г',
+                                                    style: const TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            0, 0, 0, 0.4),
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 14),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                      //Expanded(child: SizedBox(width: 30,)),
-                                      // buttons
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color:
-                                              const Color.fromRGBO(239, 238, 236, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
                                         ),
-                                        child: Row(
-                                          children: [
-                                            IconButton(
-                                                onPressed: () =>
-                                                    Provider.of<CartModel>(
-                                                            context,
-                                                            listen: false)
-                                                        .removeOneFromCart(value
-                                                            .cartItems[index]
-                                                            .id),
-                                                icon: const Icon(Icons.remove)),
-                                            Text(value.map_of_Dishes[
-                                                    value.cartItems[index].id]
-                                                .toString()),
-                                            IconButton(
-                                                onPressed: () => Provider.of<
-                                                            CartModel>(context,
-                                                        listen: false)
-                                                    .addItemToCart(
-                                                        value.cartItems[index]),
-                                                icon: const Icon(Icons.add))
-                                          ],
+                                        //Expanded(child: SizedBox(width: 30,)),
+                                        // buttons
+                                        Container(
+                                          height: 35,
+                                          decoration: BoxDecoration(
+
+                                            color:
+                                                const Color.fromRGBO(239, 238, 236, 1),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () =>
+                                                      Provider.of<CartModel>(
+                                                              context,
+                                                              listen: false)
+                                                          .removeOneFromCart(value
+                                                              .cartItems[index]
+                                                              .id),
+                                                  icon: const Icon(Icons.remove)),
+                                              Text(value.map_of_Dishes[
+                                                      value.cartItems[index].id]
+                                                  .toString()),
+                                              IconButton(
+                                                  onPressed: () => Provider.of<
+                                                              CartModel>(context,
+                                                          listen: false)
+                                                      .addItemToCart(
+                                                          value.cartItems[index]),
+                                                  icon: const Icon(Icons.add))
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            );
-                          }),
-                    ),
-                    MaterialButton(
-                        minWidth: MediaQuery.of(context).size.width - 20,
-                        height: 48,
-                        color: const Color.fromRGBO(51, 100, 224, 1),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        onPressed: () {},
-                        child: Text(
-                          'Оплатить ' + value.calculateTotalPrice() + '\₽',
-                          style: const TextStyle(color: Colors.white, fontSize: 18.0),
-                        ))
-                  ],
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              );
+                            }),
+                      ),
+                      MaterialButton(
+                          minWidth: MediaQuery.of(context).size.width - 20,
+                          height: 48,
+                          color: const Color.fromRGBO(51, 100, 224, 1),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          onPressed: () {},
+                          child: Text(
+                            'Оплатить ' + value.calculateTotalPrice() + '\₽',
+                            style: const TextStyle(color: Colors.white, fontSize: 18.0),
+                          ))
+                    ],
+                  ),
                 ),
               );
 
